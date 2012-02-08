@@ -3,3 +3,4 @@ liftedcontent*
 .metadata/
 target/
 *~
+*.db
