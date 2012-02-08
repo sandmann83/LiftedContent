@@ -28,7 +28,8 @@ object WebBuild extends Build {
     libraryDependencies += "org.eclipse.jetty" % "jetty-webapp" % "8.1.0.v20120127" % "container"
   ) ++ container.deploy(
     "/cms" -> cmsExampleModule,
-    "/blog" -> blogExampleModule
+    "/blog" -> blogExampleModule,
+    "/sb" -> homepage
   )
 
   lazy val utilSettings = globalSettings
@@ -42,6 +43,7 @@ object WebBuild extends Build {
 
   lazy val cmsExampleSettings = webappSettings ++ globalSettings
   lazy val blogExampleSettings = webappSettings ++ globalSettings
+  lazy val homepageSettings = webappSettings ++ globalSettings
 
   lazy val root = Project("root", file(".")) settings(rootSettings:_*) aggregate(examples)
   lazy val examples = Project("Examples", file("liftedcontent-examples")) aggregate(cmsExampleModule, blogExampleModule)
@@ -54,9 +56,10 @@ object WebBuild extends Build {
 
   lazy val core = Project("Core", file("liftedcontent-core")) settings(coreSettings:_*) dependsOn(util, richTextEditor)
 
-  lazy val blog = Project("Blog", file("liftedcontent-blog")) settings(blogSettings:_*) dependsOn(core, autocomplete)
+  lazy val blog = Project("Blog", file("liftedcontent-blog")) settings(blogSettings:_*) dependsOn(core, autocomplete, microformats)
 
   
   lazy val cmsExampleModule = Project("CMSExample", file("liftedcontent-examples/CMSExample")) settings(cmsExampleSettings:_*) dependsOn(core)
   lazy val blogExampleModule = Project("BlogExample", file("liftedcontent-examples/BlogExample")) settings(blogExampleSettings:_*) dependsOn(core, blog)
+  lazy val homepage = Project("Homepage", file("Homepage")) settings(homepageSettings:_*) dependsOn(core, blog)
 } 
