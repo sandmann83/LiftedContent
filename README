@@ -1,0 +1,3 @@
+This is a convenience project for developing LiftedContent.
+It defines a SBT multi-module project to eliminate the need to publish
+artifacts to the local repository. 
