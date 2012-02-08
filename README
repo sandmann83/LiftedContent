@@ -1,3 +1,5 @@
 This is a convenience project for developing LiftedContent.
 It defines a SBT multi-module project to eliminate the need to publish
 artifacts to the local repository. 
+
+To use this project you have to clone all subprojects into the LiftedContent project and modify project/Build.scala to your needs.
