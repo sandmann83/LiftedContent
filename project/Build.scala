@@ -28,18 +28,13 @@ object WebBuild extends Build {
     libraryDependencies += "org.eclipse.jetty" % "jetty-webapp" % "8.1.0.v20120127" % "container"
   ) ++ container.deploy(
     "/cms" -> cmsExampleModule,
-    "/blog" -> blogExampleModule,
-    "/sb" -> homepage
+    "/blog" -> blogExampleModule
+   // "/" -> homepage
   )
-
-  lazy val utilSettings = globalSettings
 
   lazy val coreSettings = Seq(
     libraryDependencies ++= Seq("nl.bitwalker" % "UserAgentUtils" % "1.2.4" % "compile->default" withSources)
   ) ++ globalSettings
-
-  lazy val rteSettings = webappSettings ++ globalSettings
-  lazy val blogSettings = globalSettings
 
   lazy val cmsExampleSettings = webappSettings ++ globalSettings
   lazy val blogExampleSettings = webappSettings ++ globalSettings
@@ -48,18 +43,19 @@ object WebBuild extends Build {
   lazy val root = Project("root", file(".")) settings(rootSettings:_*) aggregate(examples)
   lazy val examples = Project("Examples", file("liftedcontent-examples")) aggregate(cmsExampleModule, blogExampleModule)
 
-  lazy val util = Project("Util", file("liftedcontent-util")) settings(utilSettings:_*)
+  lazy val util = Project("Util", file("liftedcontent-util")) settings(globalSettings:_*)
   lazy val autocomplete = Project("AutoComplete", file("liftedcontent-autocomplete")) settings(globalSettings:_*)
 
   lazy val microformats = Project("Microformats", file("liftedcontent-microformats")) settings(globalSettings:_*) dependsOn(util)
-  lazy val richTextEditor = Project("RichTextEditor", file("liftedcontent-rte")) settings(rteSettings:_*) dependsOn(util)
+  lazy val repository = Project("ContentRepository", file("liftedcontent-repository")) settings(globalSettings:_*) dependsOn(util)
+  lazy val richTextEditor = Project("RichTextEditor", file("liftedcontent-rte")) settings(globalSettings:_*) dependsOn(util, repository)
 
-  lazy val core = Project("Core", file("liftedcontent-core")) settings(coreSettings:_*) dependsOn(util, richTextEditor)
+  lazy val core = Project("Core", file("liftedcontent-core")) settings(coreSettings:_*) dependsOn(util, richTextEditor, repository)
 
-  lazy val blog = Project("Blog", file("liftedcontent-blog")) settings(blogSettings:_*) dependsOn(core, autocomplete, microformats)
+  lazy val blog = Project("Blog", file("liftedcontent-blog")) settings(globalSettings:_*) dependsOn(core, autocomplete, microformats)
 
   
   lazy val cmsExampleModule = Project("CMSExample", file("liftedcontent-examples/CMSExample")) settings(cmsExampleSettings:_*) dependsOn(core)
   lazy val blogExampleModule = Project("BlogExample", file("liftedcontent-examples/BlogExample")) settings(blogExampleSettings:_*) dependsOn(core, blog)
-  lazy val homepage = Project("Homepage", file("Homepage")) settings(homepageSettings:_*) dependsOn(core, blog)
+  //lazy val homepage = Project("Homepage", file("Homepage")) settings(homepageSettings:_*) dependsOn(core, blog)
 } 
