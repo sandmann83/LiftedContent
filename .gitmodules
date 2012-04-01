@@ -1,0 +1,24 @@
+[submodule "liftedcontent-autocomplete"]
+	path = liftedcontent-autocomplete
+	url = ./liftedcontent-autocomplete
+[submodule "liftedcontent-blog"]
+	path = liftedcontent-blog
+	url = ./liftedcontent-blog
+[submodule "liftedcontent-core"]
+	path = liftedcontent-core
+	url = ./liftedcontent-core/
+[submodule "liftedcontent-examples"]
+	path = liftedcontent-examples
+	url = ./liftedcontent-examples
+[submodule "liftedcontent-microformats"]
+	path = liftedcontent-microformats
+	url = ./liftedcontent-microformats/
+[submodule "liftedcontent-repository"]
+	path = liftedcontent-repository
+	url = ./liftedcontent-repository/
+[submodule "liftedcontent-rte"]
+	path = liftedcontent-rte
+	url = ./liftedcontent-rte/
+[submodule "liftedcontent-util"]
+	path = liftedcontent-util
+	url = ./liftedcontent-util/
