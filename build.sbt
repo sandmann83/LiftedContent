@@ -1,12 +1,19 @@
 name := "LiftedContent"
 
-version := "1.0.0"
- 
-scalaVersion := "2.9.1"
+version := "1.0.1"
 
-scanDirectories in Compile := Nil
+organization := "sbradl"
 
-scalacOptions in Compile ++= Seq(
-  "-deprecation",
-   "-g:vars"
-)
+scalaVersion in ThisBuild := "2.10.0"
+
+seq(com.github.siasia.WebPlugin.webSettings :_*)
+
+seq(org.scalastyle.sbt.ScalastylePlugin.Settings :_*)
+
+scalacOptions ++= Seq("-deprecation", "-unchecked")
+
+EclipseKeys.createSrc := EclipseCreateSrc.Default + EclipseCreateSrc.Resource
+
+parallelExecution in Test := false
+
+testOptions in Test += Tests.Argument("junitxml")

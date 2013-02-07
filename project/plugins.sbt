@@ -1,5 +1,7 @@
-resolvers += Classpaths.typesafeResolver
+libraryDependencies <+= sbtVersion(v => v match {
+case x if (x.startsWith("0.12")) => "com.github.siasia" %% "xsbt-web-plugin" % "0.12.0-0.2.11.1"
+})
 
-addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "2.0.0")
+addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "2.1.1")
 
-libraryDependencies <+= sbtVersion(v => "com.github.siasia" %% "xsbt-web-plugin" % (v+"-0.2.11"))
+addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "0.2.0")
